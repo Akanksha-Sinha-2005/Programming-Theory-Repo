@@ -1,0 +1,106 @@
+
+PROGRAMMING THEORY PROJECT - DESIGN DOCUMENT
+Project Name: Animal Farm Rescue
+Student Name: [Your Name]
+Date: 31 Aug 2026
+
+
+1. GAME CONCEPT:
+A 3D mini-game where player is a Farmer (Human). There are 3 hungry animals roaming around the farm: Dog, Cat, and Cow. Player can move around and click on animals to feed them. Each animal reacts differently when fed.
+
+The game is fun to playtest because each animal has unique personality.
+
+2. GAME OBJECTS & INHERITANCE (Pillar 1):
+
+Parent Class: Animal (abstract class : MonoBehaviour)
+- This is the base class for all animals.
+
+Child Classes (INHERITANCE):
+a) Dog : Animal
+   - Prefab: Dog (Brown Capsule or Low Poly Dog model)
+   - Behavior: Fast, follows player, barks loudly
+
+b) Cat : Animal
+   - Prefab: Cat (Orange Capsule or Low Poly Cat model)
+   - Behavior: Lazy, wanders randomly, meows
+
+c) Cow : Animal
+   - Prefab: Cow (White Capsule or Low Poly Cow model)
+   - Behavior: Slow, eats grass, moos and grows bigger
+
+Player Object: Farmer (Human)
+- Not part of Animal inheritance, controlled by player with WASD
+
+Comment marker: // INHERITANCE will be added in Dog.cs, Cat.cs, Cow.cs where they inherit from Animal.
+
+3. POLYMORPHISM (Pillar 2):
+
+All animals have same methods but different implementation:
+
+- MakeSound(): 
+  Dog overrides to Debug.Log("Woof!"), 
+  Cat to "Meow!", 
+  Cow to "Moo!"
+
+- Move():
+  Dog = fast chase,
+  Cat = random wander,
+  Cow = slow walk
+
+- Eat():
+  Dog eats bone,
+  Cat eats fish,
+  Cow eats grass
+
+Also Method Overloading example:
+- Feed(int amount)
+- Feed(string foodType)
+
+Comment marker: // POLYMORPHISM will be added where we override methods.
+
+4. ENCAPSULATION (Pillar 3):
+
+In Animal.cs:
+
+private string m_animalName -> public string AnimalName { get; set; } with validation: name length must be < 20
+private int m_hunger -> public int Hunger { get; set; } with validation: Clamp between 0 and 100, can't be negative
+private float m_speed -> public float Speed { get; set; } with validation: speed > 0
+
+This protects data.
+
+Comment marker: // ENCAPSULATION will be added in Animal.cs
+
+5. ABSTRACTION (Pillar 4):
+
+In Animal.cs we have high-level method:
+
+public void Feed()
+{
+    MakeSound(); // abstract details hidden
+    Eat(); // abstract details hidden
+    ReduceHunger(); // private method, user doesn't see
+    DisplayInfo();
+}
+
+Player just calls animal.Feed() and doesn't need to know how hunger reduces or sound plays. Also abstract methods force child classes to implement.
+
+Comment marker: // ABSTRACTION will be added in Animal.cs
+
+6. SCENE LAYOUT:
+
+- Ground: Plane scaled 3x
+- Farmer: Capsule at (0,1,0) with FarmerController
+- Dog: at (-4,1,-2)
+- Cat: at (4,1,-2)
+- Cow: at (0,1,5)
+- Main Camera: Top-down view looking at farm
+- Lighting: Directional Light
+
+7. CONTROLS & WIN CONDITION:
+
+- WASD to move farmer
+- Mouse Click on animal to feed
+- Console shows animal sounds and hunger
+- Game has no win/lose, it's a display of OOP, but we can make animals disappear when fully fed.
+
+END OF DOCUMENT
