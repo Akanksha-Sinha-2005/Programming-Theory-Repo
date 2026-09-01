@@ -1,16 +1,12 @@
 using UnityEngine;
-
-// INHERITANCE - Dog inherits from Animal
 public class Dog : Animal
 {
     void Start() { animalName = "Dog"; }
-
-    // POLYMORPHISM - overrides MakeSound
     public override void MakeSound()
     {
         Debug.Log("Woof! Woof!");
+        PlaySound();
     }
-
     public override void Feed()
     {
         base.Feed();

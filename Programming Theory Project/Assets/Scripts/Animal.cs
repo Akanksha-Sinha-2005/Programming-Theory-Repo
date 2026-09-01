@@ -2,22 +2,38 @@ using UnityEngine;
 
 public abstract class Animal : MonoBehaviour
 {
-    // ENCAPSULATION - private field with public property
-    private float hunger = 50f;
-    public float Hunger
+    [SerializeField] protected string animalName = "Animal";
+    [SerializeField] protected string animalColor = "Brown";
+    [SerializeField] protected int hungerLevel = 50;
+
+    [Header("Sound")]
+    public AudioClip animalSoundClip;
+    protected AudioSource audioSource;
+
+    void Awake()
     {
-        get { return hunger; }
-        set { hunger = Mathf.Clamp(value, 0, 100); }
+        audioSource = gameObject.AddComponent<AudioSource>();
     }
 
-    public string animalName;
-
-    // ABSTRACTION - abstract method
     public abstract void MakeSound();
+
+    protected virtual void DisplayInfo()
+    {
+        Debug.Log($"This is {animalName}, a {animalColor} animal with {hungerLevel} hunger");
+    }
 
     public virtual void Feed()
     {
-        Hunger -= 20f;
-        Debug.Log(animalName + " was fed. Hunger: " + Hunger);
+        hungerLevel -= 10;
+        if (hungerLevel < 0) hungerLevel = 0;
+        DisplayInfo();
+    }
+
+    protected void PlaySound()
+    {
+        if (animalSoundClip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(animalSoundClip);
+        }
     }
 }
