@@ -1,4 +1,6 @@
 using UnityEngine;
+
+// INHERITANCE
 public class Horse : Animal
 {
     void Start() { animalName = "Horse"; }

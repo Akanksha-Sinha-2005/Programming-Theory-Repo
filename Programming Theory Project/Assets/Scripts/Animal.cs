@@ -1,9 +1,11 @@
 using UnityEngine;
 
+// ABSTRACTION
 public abstract class Animal : MonoBehaviour
 {
     [SerializeField] protected string animalName = "Animal";
     [SerializeField] protected string animalColor = "Brown";
+    // ENCAPSULATION
     [SerializeField] protected int hungerLevel = 50;
 
     [Header("Sound")]
@@ -15,6 +17,7 @@ public abstract class Animal : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
     }
 
+    // POLYMORPHISM
     public abstract void MakeSound();
 
     protected virtual void DisplayInfo()
